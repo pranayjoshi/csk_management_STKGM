@@ -1,3 +1,12 @@
+import csv
+
+def create():
+    f=open("csk.csv","w",newline="")
+    w=csv.writer(f)
+    head=("Name","Age","Nationality","Role","Handedness","Health Status","MS Dhoni","Experience","Bid Amount","Cap","Strike Rate","Batting Average","Economy","Bowling Average")
+    w.writerow(head)
+    f.close()
+
 def vstr(x):
     x= list(x)
     if len(x)==0 or x[0]==" ":
@@ -16,7 +25,7 @@ def vrole(x):
     else: return True
 
 def vhand(x):
-    if x.lower() not in ("right","left"):
+    if x.lower() not in ("right","left","r","l"):
         return False
     else: return True
 
@@ -25,18 +34,26 @@ def vhs(x):
         return False
     else: return True
 
-def vrr(x):
-    if x.lower() not in ("reserve","roster"):
-        return False
-    else: return True
-
 def vcu(x):
-    if x.lower() not in ("capped","uncapped"):
+    if x.lower() not in ("capped","uncapped","cap","uncap","c","u"):
         return False
     else: return True
 
 def vsr(x):
+    if x not in (" ",""):
+        for i in x:
+            if not i.isdigit():
+                return False
+            else:
+                return True
+    else: return True
 
+def vfloat(x,l):
+    if x in (""," "):
+        l.append(None)
+    else:
+        l.append(float(x))
+    return l
 
 def add():
     l=[]
@@ -72,7 +89,8 @@ def add():
         role=input(ask)
         ver=vrole(role)
         ask="Enter role correctly: "
-    l.append(role)
+    if role.lower()=="wk": l.append("wicket keeper")
+    else: l.append(role)
 
     ver=False
     ask="Enter handedness of the player: "
@@ -80,7 +98,8 @@ def add():
         hand=input(ask)
         ver=vhand(hand)
         ask="Enter handedness correctly: "
-    l.append(hand)
+    if hand[0]=="r": l.append("right")
+    else: l.append("left")
 
     ver=False
     ask="Enter health status of the player: "
@@ -90,6 +109,11 @@ def add():
         ask="Enter health status correctly: "
     l.append(hs)
 
+    if l[0].lower() in ("ms dhoni","mahendra singh dhoni","dhoni","mahendra dhoni","mahi"):
+        l.append("Yes")
+    else:
+        l.append("No")
+
     ver=False
     ask="Enter experience (no of years) of the player: "
     while not ver:
@@ -97,7 +121,7 @@ def add():
         ver=vstr(exp)
         ver=vint(exp)
         ask="Enter experience correctly: "
-    age=int(exp)
+    exp=int(exp)
     l.append(exp)
 
     ver=False
@@ -107,16 +131,8 @@ def add():
         ver=vstr(ba)
         ver=vint(ba)
         ask="Enter bid amount correctly: "
-    age=int(ba)
+    ba=int(ba)
     l.append(ba)
-
-    ver=False
-    ask="Is the player in roster or in reserve?: "
-    while not ver:
-        rr=input(ask)
-        ver=vrr(rr)
-        ask="Enter roster or reserve only: "
-    l.append(rr)
 
     ver=False
     ask="Is the player capped or uncapped?: "
@@ -124,7 +140,9 @@ def add():
         cu=input(ask)
         ver=vcu(cu)
         ask="Enter capped or uncapped only: "
-    l.append(cu)
+    if cu[0].lower()=="c":
+        l.append("capped")
+    else: l.append("uncapped")
 
     ver=False
     ask="Enter strike rate of the player: "
@@ -132,12 +150,38 @@ def add():
         sr=input(ask)
         ver=vsr(sr)
         ask="Enter bid amount correctly: "
-    age=int(sr)
-    l.append(sr)
+    l=vfloat(sr,l)
 
-    return l
+    ver=False
+    ask="Enter Batting Average of the player: "
+    while not ver:
+        baa=input(ask)
+        ver=vsr(baa)
+        ask="Enter Economy correctly: "
+    l=vfloat(baa,l)
 
+    ver=False
+    ask="Enter Economy of the player: "
+    while not ver:
+        eco=input(ask)
+        ver=vsr(eco)
+        ask="Enter Economy correctly: "
+    l=vfloat(eco,l)
+
+    ver=False
+    ask="Enter Bowling Average of the player: "
+    while not ver:
+        bwa=input(ask)
+        ver=vsr(bwa)
+        ask="Enter Bowling Average correctly: "
+    l=vfloat(bwa,l)
+
+    print(l)
+    f=open("csk.csv","a",newline="")
+    w=csv.writer(f)
+    w.writerow(l)
+
+create()
 l=add()
-print(l)
 
 
