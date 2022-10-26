@@ -3,7 +3,7 @@ import csv
 def create():
     f=open("csk.csv","w",newline="")
     w=csv.writer(f)
-    head=("Name","Age","Nationality","Role","Handedness","Health Status","MS Dhoni","Experience","Bid Amount","Cap","Strike Rate","Batting Average","Economy","Bowling Average")
+    head=("PlayerID","Name","Age","Nationality","Role","Handedness","Health Status","MS Dhoni","Experience","Bid Amount","Cap","Strike Rate","Batting Average","Economy","Bowling Average")
     w.writerow(head)
     f.close()
 
@@ -19,9 +19,18 @@ def vint(x):
             return False
         else: return True
 
+def vplayerID(x):
+    l= [] # recorddsss
+    s = True
+    for i in l:
+        if i = x:
+            s = False
+            break
+    return s
+
 def vrole(x):
     if x.lower() not in ("batsman","bowler","all rounder","wicket keeper","wk"):
-        return False
+        return Falsea
     else: return True
 
 def vhand(x):
@@ -57,6 +66,17 @@ def vfloat(x,l):
 
 def add():
     l=[]
+    ver=False
+    ask="Enter PlayerID of the player: "
+    while not ver:
+        p_id=input(ask)
+        ver=vstr(p_id)
+        ver=vint(p_id)
+        ver=vplayerID(p_id)
+        ask="Enter PlayerID correctly: "
+    age=int(p_id)
+    l.append(p_id)
+
     ver=False
     ask="Enter name of the player: "
     while not ver:
