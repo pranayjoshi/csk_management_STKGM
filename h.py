@@ -7,6 +7,15 @@ def create():
     w.writerow(head)
     f.close()
 
+def idlist():
+    lid=[]
+    f=open("csk.csv","r")
+    r=csv.reader(f)
+    for i in r:
+        lid.append(i[0])
+    f.close()
+    return lid
+
 def vstr(x):
     x= list(x)
     if len(x)==0 or x[0]==" ":
@@ -19,12 +28,11 @@ def vint(x):
             return False
         else: return True
 
-def vplayerID(x):
-    l= [] # recorddsss
-    s = True
-    for i in l:
-        if i = x:
-            s = False
+def vplayerID(x,lid):
+    s=True
+    for i in lid:
+        if i==x:
+            s=False
             break
     return s
 
@@ -64,19 +72,19 @@ def vfloat(x,l):
         l.append(float(x))
     return l
 
-def add():
-    l=[]
-    ver=False
-    ask="Enter PlayerID of the player: "
-    while not ver:
-        p_id=input(ask)
-        ver=vstr(p_id)
-        ver=vint(p_id)
-        ver=vplayerID(p_id)
-        ask="Enter PlayerID correctly: "
-    age=int(p_id)
-    l.append(p_id)
+def lcap():
+    lcap=[]
+    f=open("csk.csv","r")
+    r=csv.reader(f)
+    next(r,None)
+    for i in r:
+        if i[10]="capped":
+            lcap.append(i[0])
+    return lcap
 
+def add():
+    lid=idlist()
+    l=[]
     ver=False
     ask="Enter name of the player: "
     while not ver:
@@ -84,6 +92,17 @@ def add():
         ver=vstr(nm)
         ask="Enter name correctly: "
     l.append(nm)
+
+    ver=False
+    ask="Enter PlayerID of the player: "
+    while not ver:
+        pid=input(ask)
+        ver=vstr(pid)
+        ver=vint(pid)
+        ver=vplayerID(pid,lid)
+        ask="Enter PlayerID correctly: "
+    pid=int(pid)
+    l.insert(0,pid)
 
     ver=False
     ask="Enter age of the player: "
@@ -129,7 +148,7 @@ def add():
         ask="Enter health status correctly: "
     l.append(hs)
 
-    if l[0].lower() in ("ms dhoni","mahendra singh dhoni","dhoni","mahendra dhoni","mahi"):
+    if l[1].lower() in ("ms dhoni","mahendra singh dhoni","dhoni","mahendra dhoni","mahi"):
         l.append("Yes")
     else:
         l.append("No")
@@ -197,11 +216,77 @@ def add():
     l=vfloat(bwa,l)
 
     print(l)
-    f=open("csk.csv","a",newline="")
+    f=open("csk.csv","a+",newline="")
     w=csv.writer(f)
     w.writerow(l)
+    f.seek(0)
+    lid=[]
+    r=csv.reader(f)
+    for i in r:
+        lid.append(i[0])
+    return l,lid
 
-create()
-l=add()
+def view():
+    lid=idlist()
+    f=open("csk.csv","r")
+    r=csv.reader(f)
+    for i in r:
+        print(i)
+
+    ver=True
+    ask="Enter player id "
+    while ver:
+        choice=input(ask)
+        ask="Enter correctly "
+        if choice in lid:
+            break
+    with open("csk.csv","r") as f:
+        r=csv.reader(f)
+        for i in r:
+            if i[0]==choice or i[0]=="PlayerID":
+                print(i)
+
+def roster():
+    l=lrole=[]
+    ver=False
+    f=open("csk.csv","r")
+    r=csv.reader(f)
+    next(r,None)
+    for i in r:
+        l.append(i)
+        prinnt("ID: ",i[0],", Name: ",i[1],end="")
+    while not ver:
+        for i in range(11):
+            XI=input("Enter player IDs of the playing XI: ")
+        XI=XI.split()
+        foreign=0
+        for i in XI:
+            for j in l:
+                if i==j[0]:
+                    lrole.append(j[4])
+                    if j[3].lower != "india":
+                        foreign+=1
+                    break
+        if foreign>4:
+            print("PlayingXI has too many overseas players")
+        elif l.count("wk")<1:
+            print("Atleast choose 1 wicketkeeper")
+        elif l.count("bowler")+l.count("all rounder")<5:
+            print("Atleast 5 players should be able to bowl")
+        else:
+            ver=True
+    print("PlayingXI is complete")
+    form=input("Enter the form in which each playingXI player is (h=high,n=normal,l=low) without spaces ")
+    form=list(form)
+    return XI,form
+
+
+while True:
+    i=input("create,add,view")
+    if i=="a": create()
+    elif i=="b": add()
+    elif i=="c": view()
+    else:
+        break
 
 
