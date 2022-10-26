@@ -2,6 +2,7 @@ def modify_info():
     f=open("personinfo.csv","r",newline='')
     r=csv.reader(f)
     l = list(r)
+    f1 = 0
     rno=int(input('enter the registration no. to be modified: '))
     for i in l:
         if i[0]==str(rno):

@@ -6,6 +6,7 @@ def Modify():
     lst = list(r)
     p_id=int(input('Enter the PlayerID to be modified: '))
     ind = 0
+    f1 = 0
     for i in lst:
         if i[0]==str(p_id):
         	l = []
@@ -143,7 +144,27 @@ def Modify():
 	    w.writerows(lst)
 	    f.close()
         print('RECORD CHANGED SUCCESSFULLY')
-	
+
+def Delete():
+	f=open("csk.csv","r",newline='')
+    r=csv.reader(f)
+    f1 = 0
+    lst = list(r)
+    p_id=int(input('Enter the PlayerID of the record to be Deleted: '))
+    ind = 0
+    for i in lst:
+        if i[0]==str(p_id):
+        	lst.pop(i)
+        	f1 = 1
+        	break
+    if f1==0:
+        print('RECORD NOT FOUND')
+    else:
+    	f=open("csk.csv","w",newline="")
+	    w=csv.writer(f)
+	    w.writerows(lst)
+	    f.close()
+    	print("RECORD DELETED SUCCESSFULLY")
 
 #Report 1
 
