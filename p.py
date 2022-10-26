@@ -166,14 +166,54 @@ def Delete():
 	    f.close()
     	print("RECORD DELETED SUCCESSFULLY")
 
-#Report 1
 
-def isMSD():
+
+#--------------------Report 1-------------------------
+
+def isMSD(playingXI): # out of 50
+	l = playingXI.keys()
+	if "Mahendra Singh Dhoni" in l:
+		return True
+	else:
+		return False
+
+def CalcPercentCP(totalCP): # out of 28
+	percentCP = 0
+	if totalCP >=7:
+		percentCP += 28
+	else:
+		percentCP += totalCP / 4
+	return percentCP
+
+def CalcPercentPForm(formList): # out of 22
+	c = 0
+	for i in formList:
+		if i == "high":
+			c+=2
+		elif i == "normal":
+			c+=1
+	return c
+
+def TotalCappedPlayers(playingXI, cappedP):
 	pass
-def totalMainRoasterPlayers():
-	pass
-def TotalCappedPlayers():
-	pass
-def CSKWinPercent(playingXI):
-	pass
+def CalcCSKWinPercent(playingXI):
+	WinPercent = 0
+	if not isMSD(playingXI):
+		return WinPercent
+	else:
+		WinPercent += 50
+	totalCP = TotalCappedPlayers(playingXI, cappedP)
+	percentCP = CalcPercentCP(totalCP)
+	WinPercent += percentCP
+	percentForm = CalcPercentPForm(formList)
+	WinPercent += percentForm
+
+	return WinPercent
+
+
+#--------------------Report 2-------------------------
+
+def Report
+
+
 
