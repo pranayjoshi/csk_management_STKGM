@@ -627,6 +627,7 @@ def GenContryList():
     return Lst
 def DisplayNationData():
     CountryList = GenContryList()
+    AllData = ReturnAllData()
     for i in CountryList:
         print(i+":\n")
         for j in AllData:
@@ -674,6 +675,27 @@ def nationsort():
             print("ID: ",i[2],", Name: ",i[1],", Nationality: ",i[0])
             dnat[i[0]]=lnat.count(i[0])
         print(dnat)
+
+#------------------Report 6--------------------------
+
+def GenRoleList():
+    AllData = ReturnAllData()
+    Lst = []
+    for i in AllData:
+        nation = i[4]
+        Lst.append(nation)
+    Lst = set(Lst)
+    return Lst
+
+def ArrangebyRole():
+    AllData = ReturnAllData()
+    RoleList = GenRoleList()
+    for i in RoleList:
+        print(i+":\n")
+        for j in AllData:
+            if j[4] == i:
+                print("\t"+j[0]+": "+j[1])
+    print("---------- The End -----------")
 
 # MAIN>>>>>>>>>>>>>>
 

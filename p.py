@@ -297,8 +297,10 @@ def GenContryList():
 		Lst.append(nation)
 	Lst = set(Lst)
 	return Lst
+
 def DisplayData():
 	CountryList = GenContryList()
+	AllData = ReturnAllData()
 	for i in CountryList:
 		print(i+":\n")
 		for j in AllData:
@@ -307,6 +309,27 @@ def DisplayData():
 	print("---------- The End -----------")
 
 
+
+#------------------Report 6--------------------------
+
+def GenContryList():
+    AllData = ReturnAllData()
+    Lst = []
+    for i in AllData:
+        nation = i[3]
+        Lst.append(nation)
+    Lst = set(Lst)
+    return Lst
+    
+def ArrangebyRole():
+    CountryList = GenContryList()
+    AllData = ReturnAllData()
+    for i in CountryList:
+        print(i+":\n")
+        for j in AllData:
+            if j[3] == i:
+                print("\t"+j[0]+": "+j[1])
+    print("---------- The End -----------")
 
 
 
