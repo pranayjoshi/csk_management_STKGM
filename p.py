@@ -246,11 +246,12 @@ def CalcDifferenceScore(str_r, bt_avg, eco, bow_avg):
 
 def OrderFinalReport(FinalOutput):
 	PlayerIDs = FinalOutput.keys()
-		Data = {}
+	Data = []
 	for i in playingXI:
 		l = DatabyPlayerID(i)
+		Data.append(l)
+	return Data
 
-	
 def CalcPlayerScore(playingXI):
 	Data = {}
 	for i in playingXI:
