@@ -167,6 +167,12 @@ def Delete():
     	print("RECORD DELETED SUCCESSFULLY")
 
 
+def DatabyPlayerID(ID):
+	f=open("csk.csv","r")
+    r=csv.reader(f)
+    for i in r:
+    	if i[0]== ID:
+    		return i
 
 #--------------------Report 1-------------------------
 
@@ -177,14 +183,6 @@ def isMSD(playingXI): # out of 50
 	else:
 		return False
 
-def CalcPercentCP(totalCP): # out of 28
-	percentCP = 0
-	if totalCP >=7:
-		percentCP += 28
-	else:
-		percentCP += totalCP / 4
-	return percentCP
-
 def CalcPercentPForm(formList): # out of 22
 	c = 0
 	for i in formList:
@@ -194,14 +192,36 @@ def CalcPercentPForm(formList): # out of 22
 			c+=1
 	return c
 
+def genCappedList(playingXI):
+	lst = []
+	for i in playingXI:
+		l = DatabyPlayerID(i)
+		lst.append(l[10])
+	return lst
+
 def TotalCappedPlayers(playingXI, cappedP):
-	pass
+	capped
+	for i in cappedP:
+		if i == "capped":
+			capped +=1
+	return capped
+
+def CalcPercentCP(totalCP): # out of 28
+	percentCP = 0
+	if totalCP >=7:
+		percentCP += 28
+	else:
+		percentCP += totalCP / 4
+	return percentCP
+
 def CalcCSKWinPercent(playingXI):
 	WinPercent = 0
+	playingXI, formList = roster()
 	if not isMSD(playingXI):
 		return WinPercent
 	else:
 		WinPercent += 50
+	cappedP = genCappedList(playingXI)
 	totalCP = TotalCappedPlayers(playingXI, cappedP)
 	percentCP = CalcPercentCP(totalCP)
 	WinPercent += percentCP
@@ -213,7 +233,43 @@ def CalcCSKWinPercent(playingXI):
 
 #--------------------Report 2-------------------------
 
-def Report
 
+def OrderOutput(ScoreData):
+	FinalOutput = dict(sorted(ScoreData.items(), key=lambda item: item[1]))
+	return FinalOutput
+
+def CalcDifferenceScore(str_r, bt_avg, eco, bow_avg):
+	incF = str_r + bt_avg
+	decF = eco + bow_avg
+	diffScore = incF - decF
+	return diffScore
+
+def OrderFinalReport(FinalOutput):
+	PlayerIDs = FinalOutput.keys()
+		Data = {}
+	for i in playingXI:
+		l = DatabyPlayerID(i)
+
+	
+def CalcPlayerScore(playingXI):
+	Data = {}
+	for i in playingXI:
+		l = DatabyPlayerID(i)
+		str_r = i[-4]
+		bt_avg = i[-3]
+		eco = i[-2]
+		bow_avg = i[-1]
+		diffScore = CalcDifferenceScore(str_r, bt_avg, eco, bow_avg)
+		Data[i[1]] = diffScore
+	return Data
+
+def ReportbyPlayerRating(playingXI):
+	ScoreData = CalcPlayerScore(playingXI)
+	FinalOutput = OrderOutput(ScoreData)
+	FinalReport = OrderFinalReport(FinalOutput)
+	print(FinalOutput)
+	f=open("ReportbyPlayerRating.csv","w",newline="")
+    w=csv.writer(f)
+    w.writerows(FinalReport)
 
 
