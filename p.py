@@ -167,6 +167,9 @@ def Delete():
     	print("RECORD DELETED SUCCESSFULLY")
 
 
+#--------------------Report 1-------------------------
+
+
 def DatabyPlayerID(ID):
 	f=open("csk.csv","r")
     r=csv.reader(f)
@@ -174,7 +177,18 @@ def DatabyPlayerID(ID):
     	if i[0]== ID:
     		return i
 
+def ReturnAllData():
+    lid=[]
+    f=open("csk.csv","r")
+    r=csv.reader(f)
+    for i in r:
+        lid.append(i)
+    f.close()
+    return lid
+
+
 #--------------------Report 1-------------------------
+
 
 def isMSD(playingXI): # out of 50
 	l = playingXI.keys()
@@ -272,5 +286,27 @@ def ReportbyPlayerRating(playingXI):
 	f=open("ReportbyPlayerRating.csv","w",newline="")
     w=csv.writer(f)
     w.writerows(FinalReport)
+
+#--------------------Report 3-------------------------
+
+def GenContryList():
+	AllData = ReturnAllData()
+	Lst = []
+	for i in AllData:
+		nation = i[3]
+		Lst.append(nation)
+	Lst = set(Lst)
+	return Lst
+def DisplayData():
+	CountryList = GenContryList()
+	for i in CountryList:
+		print(i+":\n")
+		for j in AllData:
+			if j[3] == i:
+				print("\t"+j[0]+": "+j[1])
+	print("---------- The End -----------")
+
+
+
 
 
