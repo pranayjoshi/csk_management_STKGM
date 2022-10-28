@@ -220,7 +220,9 @@ def add():
     ask="Enter Economy of the player: "
     while not ver:
         eco=input(ask)
-    rco,l)
+        ver=vsr(eco)
+        ask="Enter Economy correctly: "
+    l=vfloat(eco,l)
 
     ver=False
     ask="Enter Bowling Average of the player: "

@@ -49,6 +49,7 @@ def ReturnAllData():
     lid=[]
     f=open("csk.csv","r")
     r=csv.reader(f)
+    next(r,None)
     for i in r:
         lid.append(i)
     f.close()
@@ -66,9 +67,10 @@ def lcap():
     return lcap
 
 #function to ask user for the playing 11 team
-def roster():
+def roster(temp):
     l=[]
     lrole=[]
+    dXI={}
     ver=False
     f=open("csk.csv","r")
     r=csv.reader(f)
@@ -84,11 +86,12 @@ def roster():
         for i in XI:
             for j in l:
                 if i==j[0]:
+                    dXI[i]=j[1]
                     lrole.append(j[4])
                     if j[3].lower() != "india":
                         foreign+=1
                     break
-#check there is atleast 1 wk, 5 bowlers and atmmost 4 foreigners
+#check there is atleast 1 wk, 5 bowlers and atmost 4 foreigners
         if foreign>4:
             print("PlayingXI has too many overseas players")
         elif lrole.count("wicket keeper")<1:
@@ -98,10 +101,15 @@ def roster():
         else:
             ver=True
     print("PlayingXI is complete")
-    askform()
+    if temp=0:
+        askform()
+        return dXI
+    else:
+        return dXI
+
 
 #take players' form
-def askform():
+def askform(dXI):
     ver=False
     while not ver:
         form=input("Enter the form in which each playingXI player is (h=high,n=normal,l=low) ")
@@ -114,7 +122,22 @@ def askform():
                 else: ver=True
         else:
             print("Give only 11 values")
-    return XI,form
+    return dXI,form
+
+def reports():
+    while True:
+        print("1.Report of win percentage\n2.Report by player rating\n3.Report by nationality\n4.Report by bidding amount\n5.Report by role\n6.Exit")
+        choice=(input(""))
+        playingXI=roster(1)
+        if choice=='1': CalcCSKWinPercent(playingXI)
+        elif choice=='2': ReportbyPlayerRating(playingXI)
+        elif choice=='3': DisplayNationData()
+        elif choice=='4': bidsort()
+        elif choice=='5': ArrangebyRole()
+        else:
+            print("Exiting")
+            break
+
 
  #--------------------Verify Functions-------------------------   
 
@@ -298,7 +321,10 @@ def add():
     ask="Enter Economy of the player: "
     while not ver:
         eco=input(ask)
-    rco,l)
+        ver=vsr(eco)
+        ask="Enter Economy correctly: "
+    l=vfloat(eco,l)
+
 
     ver=False
     ask="Enter Bowling Average of the player: "
@@ -327,22 +353,18 @@ def view():
     for i in r:
         print(i)
 
+def viewbyID():
     ver=True
     ask="Enter player id "
     while ver:
         choice=input(ask)
         ask="Enter correctly "
         if choice in lid:
+            print(DatabyPlayerID(ID))
             break
-    with open("csk.csv","r") as f:
-        r=csv.reader(f)
-        for i in r:
-            if i[0]==choice or i[0]=="PlayerID":
-                print(i)
-
-
-
-
+        elif choice in ("exit","quit"):
+            print("Exited")
+            #break
 
 # Modify
 
@@ -520,7 +542,7 @@ def Delete():
 
 def isMSD(playingXI): # out of 50
     l = playingXI.keys()
-    if "Mahendra Singh Dhoni" in l:
+    if "Mahendra Singh Dhoni" or "ms dhoni" or "dhoni" or "mahendra dhoni" or "mahi"in l:
         return True
     else:
         return False
@@ -558,7 +580,7 @@ def CalcPercentCP(totalCP): # out of 28
 
 def CalcCSKWinPercent(playingXI):
     WinPercent = 0
-    playingXI, formList = roster()
+    playingXI, formList = askform(),
     if not isMSD(playingXI):
         return WinPercent
     else:
@@ -653,30 +675,8 @@ def bidsort():
         for i in lbid:
             print("ID: ",i[2],", Name: ",i[1],", Bid amount: ",i[0])
 
-#--------------------Report 5-------------------------
 
-#Report to sort by nationality
-def nationsort():
-    a=""
-    with open("csk.csv","r") as f:
-        r=csv.reader(f)
-        next(r,None)
-        lnat=[]
-        dnat={}
-        ltemp=[]
-        for i in r:
-            ltemp=[]
-            ltemp.append(i[3])
-            ltemp.append(i[1])
-            ltemp.append(i[0])
-            lnat.append(ltemp)
-        lnat=sorted(lnat)
-        for i in lnat:
-            print("ID: ",i[2],", Name: ",i[1],", Nationality: ",i[0])
-            dnat[i[0]]=lnat.count(i[0])
-        print(dnat)
-
-#------------------Report 6--------------------------
+#------------------Report 5--------------------------
 
 def GenRoleList():
     AllData = ReturnAllData()
@@ -699,18 +699,19 @@ def ArrangebyRole():
 
 # MAIN>>>>>>>>>>>>>>
 
-def Main():
-    # while True:
-#     i=input("create,add,view, roster,form, report bid amount, report nationality")
-#     if i=="a": create()
-#     elif i=="b": add()
-#     elif i=="c": view()
-#     elif i=="d": roster()
-#     elif i=="e": update form()
-#     elif i=="f": bidsort()
-#     elif i=="g": nationsort()
-#     else:
-#         break
-    pass
-def if __name__ == '__main__':
-    main()
+def main():
+    while True:
+        print(mess)
+        print("1.Add a player\n2.View all players\n3.Modify player data\n4.Choose PlayingXI\n5.View players by ID\n6.Reports\n7.Exit")
+        choice=(input(""))
+        if choice=='1': add()
+        elif choice=='2': view()
+        elif choice=='3': modify()
+        elif choice=='4': roster(0)
+        elif choice=='5': viewbyID()
+        elif choice=='6': reports()
+        else:
+            print("Exiting")
+            break
+
+main()
