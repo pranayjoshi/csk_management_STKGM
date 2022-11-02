@@ -126,11 +126,18 @@ def askform(dXI):
 
 def reports():
     while True:
-        print("1.Report of win percentage\n2.Report by player rating\n3.Report by nationality\n4.Report by bidding amount\n5.Report by role\n6.Exit")
+        print("""
+            1.Report of win percentage\n
+            2.Report by player rating\n
+            3.Report by nationality\n
+            4.Report by bidding amount\n
+            5.Report by role\n
+            6.Exit
+            """)
         choice=(input(""))
         playingXI=roster(1)
         if choice=='1': CalcCSKWinPercent(playingXI)
-        elif choice=='2': ReportbyPlayerRating(playingXI)
+        elif choice=='2': ReportbyPlayerRating(playingXI.keys())
         elif choice=='3': DisplayNationData()
         elif choice=='4': bidsort()
         elif choice=='5': ArrangebyRole()
@@ -580,11 +587,12 @@ def CalcPercentCP(totalCP): # out of 28
 
 def CalcCSKWinPercent(playingXI):
     WinPercent = 0
-    playingXI, formList = askform(),
+    _, formList = askform(),
     if not isMSD(playingXI):
         return WinPercent
     else:
         WinPercent += 50
+    playingXI = playingXI.keys()
     cappedP = genCappedList(playingXI)
     totalCP = TotalCappedPlayers(playingXI, cappedP)
     percentCP = CalcPercentCP(totalCP)
@@ -629,6 +637,7 @@ def CalcPlayerScore(playingXI):
     return Data
 
 def ReportbyPlayerRating(playingXI):
+    playingXI = playingXI.keys()
     ScoreData = CalcPlayerScore(playingXI)
     FinalOutput = OrderOutput(ScoreData)
     FinalReport = OrderFinalReport(FinalOutput)
@@ -702,7 +711,15 @@ def ArrangebyRole():
 def main():
     while True:
         print(mess)
-        print("1.Add a player\n2.View all players\n3.Modify player data\n4.Choose PlayingXI\n5.View players by ID\n6.Reports\n7.Exit")
+        print("""
+            1.Add a player\n
+            2.View all players\n
+            3.Modify player data\n
+            4.Choose PlayingXI\n
+            5.View players by ID\n
+            6.Reports\n
+            7.Exit
+        """)
         choice=(input(""))
         if choice=='1': add()
         elif choice=='2': view()
