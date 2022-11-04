@@ -14,3 +14,4 @@ PlayerID,Name,Age,Nationality,Role,Handedness,Health Status,MS Dhoni,Experience,
 13,m,30,india,batsman,left,fit,No,13,3,capped,50.0,60.0,50.0,50.0
 14,MS Dhoni,31,india,wicket keeper,right,fit,Yes,15,50,capped,200.0,250.0,20.0,18.0
 15,n,32,new zealand,batsman,left,unfit,No,12,6,capped,100.0,120.0,50.0,60.0
+kiku,34,india,batsman,left,unfit,No,12,5.43,capped,,4342.0,435.0,54.0

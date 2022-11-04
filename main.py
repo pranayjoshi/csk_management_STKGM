@@ -68,9 +68,10 @@ def lcap():
 
 #function to ask user for the playing 11 team
 def roster(temp):
+    global dXI
+    dXI={}
     l=[]
     lrole=[]
-    dXI={}
     ver=False
     f=open("csk.csv","r")
     r=csv.reader(f)
@@ -101,8 +102,8 @@ def roster(temp):
         else:
             ver=True
     print("PlayingXI is complete")
-    if temp=0:
-        askform()
+    if temp==0:
+        askform(dXI)
         return dXI
     else:
         return dXI
@@ -111,6 +112,7 @@ def roster(temp):
 #take players' form
 def askform(dXI):
     ver=False
+    global form
     while not ver:
         form=input("Enter the form in which each playingXI player is (h=high,n=normal,l=low) ")
         form=form.split()
@@ -135,15 +137,20 @@ def reports():
             6.Exit
             """)
         choice=(input(""))
-        playingXI=roster(1)
-        if choice=='1': CalcCSKWinPercent(playingXI)
-        elif choice=='2': ReportbyPlayerRating(playingXI.keys())
-        elif choice=='3': DisplayNationData()
-        elif choice=='4': bidsort()
-        elif choice=='5': ArrangebyRole()
-        else:
+        if choice not in ('1','2','3','4','5'):
             print("Exiting")
-            break
+            return
+        else:
+            if dXI == {}:
+                playingXI=roster(1)
+            else:
+                playingXI=dXI
+            if choice=='1': print(CalcCSKWinPercent(playingXI))
+            elif choice=='2': ReportbyPlayerRating(playingXI)
+            elif choice=='3': DisplayNationData()
+            elif choice=='4': bidsort()
+            elif choice=='5': ArrangebyRole()
+
 
 
  #--------------------Verify Functions-------------------------   
@@ -363,15 +370,16 @@ def view():
 def viewbyID():
     ver=True
     ask="Enter player id "
+    lid=idlist()
     while ver:
-        choice=input(ask)
+        ID=input(ask)
         ask="Enter correctly "
-        if choice in lid:
+        if ID in lid:
             print(DatabyPlayerID(ID))
             break
-        elif choice in ("exit","quit"):
+        elif ID.lower() in ("exit","quit"):
             print("Exited")
-            #break
+            break
 
 # Modify
 
@@ -459,7 +467,7 @@ def Modify():
                 ver=vstr(ba)
                 ver=vint(ba)
                 ask="Enter bid amount correctly: "
-            ba=int(ba)
+            ba=float(ba)
             l.append(ba)
 
             ver=False
@@ -571,7 +579,7 @@ def genCappedList(playingXI):
     return lst
 
 def TotalCappedPlayers(playingXI, cappedP):
-    capped
+    capped=0
     for i in cappedP:
         if i == "capped":
             capped +=1
@@ -587,7 +595,8 @@ def CalcPercentCP(totalCP): # out of 28
 
 def CalcCSKWinPercent(playingXI):
     WinPercent = 0
-    _, formList = askform(),
+    if form != []: formList=form
+    else: x,formList = askform(playingXI)
     if not isMSD(playingXI):
         return WinPercent
     else:
@@ -710,7 +719,7 @@ def ArrangebyRole():
 
 def main():
     while True:
-        print(mess)
+        print("Enter your choice")
         print("""
             1.Add a player\n
             2.View all players\n
@@ -723,12 +732,13 @@ def main():
         choice=(input(""))
         if choice=='1': add()
         elif choice=='2': view()
-        elif choice=='3': modify()
+        elif choice=='3': Modify()
         elif choice=='4': roster(0)
         elif choice=='5': viewbyID()
         elif choice=='6': reports()
         else:
             print("Exiting")
             break
-
+form = []
+dXI={}
 main()
