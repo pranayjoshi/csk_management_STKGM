@@ -1,14 +1,11 @@
-```
-
+'''
 Team HP
 
 
 HARDIK PANDE AND PRANAY JOSHI
 
 Submitted to: Mrs. Anjali Pathak    
-
-
-```
+'''
 
 # Data Sets intro
 
@@ -162,7 +159,7 @@ def reports():
                 playingXI=roster(1)
             else:
                 playingXI=dXI
-            if choice=='1': print(CalcCSKWinPercent(playingXI))
+            if choice=='1': print("On basis of roster and form, calculated win percentage is ",CalcCSKWinPercent(playingXI),"%",end="")
             elif choice=='2': ReportbyPlayerRating(playingXI)
             elif choice=='3': DisplayNationData()
             elif choice=='4': bidsort()
@@ -464,7 +461,7 @@ def Modify():
                 ask="Enter health status correctly: "
             l.append(hs)
 
-            if l[0].lower() in ("ms dhoni","mahendra singh dhoni","dhoni","mahendra dhoni","mahi"):
+            if l[1].lower() in ("ms dhoni","mahendra singh dhoni","dhoni","mahendra dhoni","mahi"):
                 l.append("Yes")
             else:
                 l.append("No")
