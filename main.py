@@ -752,6 +752,7 @@ def main():
         elif choice=='4': roster(0)
         elif choice=='5': viewbyID()
         elif choice=='6': reports()
+        elif choice=='7': Delete()
         else:
             print("Exiting")
             break

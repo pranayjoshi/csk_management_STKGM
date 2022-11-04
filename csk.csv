@@ -1,5 +1,5 @@
 PlayerID,Name,Age,Nationality,Role,Handedness,Health Status,MS Dhoni,Experience,Bid Amount,Cap,Strike Rate,Batting Average,Economy,Bowling Average
-1,a,125,uk,batsman,left,unfit,No,75,56.0,capped,,32.0,5.0,0.5
+1,a,18,india,batsman,left,fit,No,1,1,uncapped,100.0,100.0,50.0,
 2,b,19,india,batsman,right,fit,No,2,2,capped,100.0,100.0,,50.0
 3,c,20,australia,batsman,left,fit,No,3,3,capped,100.0,,50.0,60.0
 4,d,21,australia,batsman,left,fit,No,4,4,capped,100.0,,50.0,
@@ -14,4 +14,3 @@ PlayerID,Name,Age,Nationality,Role,Handedness,Health Status,MS Dhoni,Experience,
 13,m,30,india,batsman,left,fit,No,13,3,capped,50.0,60.0,50.0,50.0
 14,MS Dhoni,31,india,wicket keeper,right,fit,Yes,15,50,capped,200.0,250.0,20.0,18.0
 15,n,32,new zealand,batsman,left,unfit,No,12,6,capped,100.0,120.0,50.0,60.0
-kiku,34,india,batsman,left,unfit,No,12,5.43,capped,,4342.0,435.0,54.0
