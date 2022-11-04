@@ -401,6 +401,8 @@ def Modify():
                 ask="Enter name correctly: "
             l.append(nm)
 
+            l.insert(0,p_id)
+
             ver=False
             ask="Enter age of the player: "
             while not ver:
@@ -565,9 +567,9 @@ def isMSD(playingXI): # out of 50
 def CalcPercentPForm(formList): # out of 22
     c = 0
     for i in formList:
-        if i == "high":
+        if i == "h":
             c+=2
-        elif i == "normal":
+        elif i == "m":
             c+=1
     return c
 
