@@ -1,6 +1,19 @@
-import csv
+```
 
-'''PlayerID: 1
+Team HP
+
+
+HARDIK PANDE AND PRANAY JOSHI
+
+Submitted to: Mrs. Anjali Pathak    
+
+
+```
+
+# Data Sets intro
+
+'''
+PlayerID: 1
 Name: 2
 Age: 3
 Nationality: 4
@@ -14,10 +27,14 @@ Cap: 11
 Strike Rate: 12
 Batting Average: 13
 Economy: 14
-Bowling Average: 15'''
+Bowling Average: 15
+'''
 
 
 
+# CODE STARTS
+
+import csv
 
 
 def create():
